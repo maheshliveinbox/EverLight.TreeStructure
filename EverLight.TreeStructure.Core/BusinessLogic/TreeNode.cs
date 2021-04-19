@@ -74,7 +74,7 @@ namespace EverLight.TreeStructure.Core.BusinessLogic
 
             return root;
         }
-        public string GetContainerName(ITreeNode<T> root)
+        public string GetLeafNodeContainerName(ITreeNode<T> root)
         {
             string containerName;
             if (root.LeftNode == null && root.RightNode == null)
@@ -86,12 +86,12 @@ namespace EverLight.TreeStructure.Core.BusinessLogic
                 if (root.Switch == SwitchType.Left)
                 {
                     root.Switch = SwitchType.Right;
-                    containerName = GetContainerName(root.LeftNode);
+                    containerName = GetLeafNodeContainerName(root.LeftNode);
                 }
                 else
                 {
                     root.Switch = SwitchType.Left;
-                    containerName = GetContainerName(root.RightNode);
+                    containerName = GetLeafNodeContainerName(root.RightNode);
                 }
             }
 

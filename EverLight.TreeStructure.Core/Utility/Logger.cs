@@ -8,5 +8,16 @@ namespace EverLight.TreeStructure.Core.Utility
         {
             Console.WriteLine(message);
         }
+
+        public void StartApplication()
+        {
+            Console.WriteLine("Start application !");
+        }
+
+        public void EndApplication()
+        {
+            Console.WriteLine("Press any key to continue....");
+            Console.ReadLine();
+        }
     }
 }

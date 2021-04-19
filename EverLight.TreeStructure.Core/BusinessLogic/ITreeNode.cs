@@ -18,7 +18,7 @@ namespace EverLight.TreeStructure.Core.BusinessLogic
         List<string> ListOfLeafNodeNames { get; set; }
         void BuildTree(ITreeNode<T> root, int depth);
         ITreeNode<T> AddNode(ITreeNode<T> root, string name);
-        string GetContainerName(ITreeNode<T> root);
+        string GetLeafNodeContainerName(ITreeNode<T> root);
         void AssignNodeValue(ITreeNode<T> node, string nodeName, T data);
     }
 }

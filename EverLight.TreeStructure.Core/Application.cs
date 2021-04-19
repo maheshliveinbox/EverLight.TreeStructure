@@ -9,6 +9,9 @@ namespace EverLight.TreeStructure.Core
 {
     public class Application
     {
+        public string PredictedContainerName { get; set; }
+        public string ActualContainerName { get; set; }
+
         private readonly ILogger _logger;
         private readonly ITreeNode<int> _treeNode;
         public Application(ILogger logger, ITreeNode<int> treeNode)
@@ -17,30 +20,51 @@ namespace EverLight.TreeStructure.Core
             _treeNode = treeNode;
         }
 
+        public void PredictWhichContainerWillNotReceiveABall(int depth)
+        {
+            var root = _treeNode;
+
+            _treeNode.BuildTree(root, depth);
+
+            var listOfReceivedBallsContainerNames = new List<string>();
+
+            // Predict which container not receive a ball
+            for (var i = 1; i <= _treeNode.NumberOfBallsToRun; i++)
+            {
+                var leafNodeContainerName = root.GetLeafNodeContainerName(root);
+
+                listOfReceivedBallsContainerNames.Add(leafNodeContainerName);
+            }
+            var listOfLeafNodeNames = _treeNode.ListOfLeafNodeNames;
+
+            PredictedContainerName = listOfLeafNodeNames.Except(listOfReceivedBallsContainerNames).FirstOrDefault();
+
+            _logger.Log("System predicts this container will not receive any balls: " + PredictedContainerName);
+        }
+
         public void RunBall(int depth)
         {
             var root = _treeNode;
 
             _treeNode.BuildTree(root, depth);
 
-            var listOfReceivedBallsContainerName = new List<string>();
+            var listOfLeafNodeNames = _treeNode.ListOfLeafNodeNames;
+            var listOfReceivedBallsContainerNames = new List<string>();
 
             for (var i = 1; i <= _treeNode.NumberOfBallsToRun; i++)
             {
-                var currentContainerName = root.GetContainerName(root);
-                listOfReceivedBallsContainerName.Add(currentContainerName);
-                _treeNode.AssignNodeValue(root, currentContainerName, i);
-                _logger.Log("Container Name: " + currentContainerName + ", Value: " + i);
+                var leafNodeContainerName = root.GetLeafNodeContainerName(root);
+
+                listOfReceivedBallsContainerNames.Add(leafNodeContainerName);
+
+                _treeNode.AssignNodeValue(root, leafNodeContainerName, i);
+
+                _logger.Log("Container Name: " + leafNodeContainerName + ", Value: " + i);
             }
 
-            var listOfLeafNodeNames = _treeNode.ListOfLeafNodeNames;
+            ActualContainerName = listOfLeafNodeNames.Except(listOfReceivedBallsContainerNames).FirstOrDefault();
 
-            foreach (var containerName in listOfReceivedBallsContainerName)
-            {
-                listOfLeafNodeNames.Remove(containerName);
-            }
-
-            _logger.Log("This container didn't receive any balls: " + listOfLeafNodeNames.First());
+            _logger.Log("This container didn't receive any balls: " + ActualContainerName);
         }
     }
 }
