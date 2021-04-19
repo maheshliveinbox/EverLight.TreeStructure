@@ -9,4 +9,10 @@
     <ProjectReference Include="..\EverLight.TreeStructure.Core\EverLight.TreeStructure.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
