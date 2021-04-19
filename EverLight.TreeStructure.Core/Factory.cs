@@ -13,11 +13,6 @@ namespace EverLight.TreeStructure.Core
             return new Logger();
         }
 
-        //public static ITreeStructure<T> CreateStructure()
-        //{
-        //    return new TreeStructure<T>(CreateLogger());
-        //}
-
         public static ITreeNode<T> CreateTreeNode(string name)
         {
             return new TreeNode<T>(name);
