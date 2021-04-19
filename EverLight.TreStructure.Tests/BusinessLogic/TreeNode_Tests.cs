@@ -3,15 +3,24 @@ using System.Collections.Generic;
 using System.Text;
 using EverLight.TreeStructure.Core;
 using EverLight.TreeStructure.Core.BusinessLogic;
+using Xunit;
 
 namespace EverLight.TreStructure.Tests.BusinessLogic
 {
     public class TreeNode_Tests
     {
-        private readonly ITreeNode<int> _treeNode;
-        public TreeNode_Tests()
+        [Fact]
+        public void BuildTree_LeftNode_Is_Equal_To_RightNode()
         {
-            _treeNode = Factory<int>.CreateTreeNode("root");
+            // Arrange
+            double expected = 5;
+
+            // Act
+            double actual = 4;
+
+            // Assert
+
+            Assert.Equal(expected, actual);
         }
     }
 }
