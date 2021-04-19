@@ -28,18 +28,13 @@ namespace EverLight.TreeStructure.Core
 
             var listOfReceivedBallsContainerNames = new List<string>();
 
-            // Predict which container not receive a ball
             for (var i = 1; i <= _treeNode.NumberOfBallsToRun; i++)
             {
-                var leafNodeContainerName = root.GetLeafNodeContainerName(root);
-
-                listOfReceivedBallsContainerNames.Add(leafNodeContainerName);
+                listOfReceivedBallsContainerNames.Add(root.GetLeafNodeContainerName(root));
             }
             var listOfLeafNodeNames = _treeNode.ListOfLeafNodeNames;
 
             PredictedContainerName = listOfLeafNodeNames.Except(listOfReceivedBallsContainerNames).FirstOrDefault();
-
-            _logger.Log("System predicts this container will not receive any balls: " + PredictedContainerName);
         }
 
         public void RunBall(int depth)
@@ -63,8 +58,6 @@ namespace EverLight.TreeStructure.Core
             }
 
             ActualContainerName = listOfLeafNodeNames.Except(listOfReceivedBallsContainerNames).FirstOrDefault();
-
-            _logger.Log("This container didn't receive any balls: " + ActualContainerName);
         }
     }
 }
